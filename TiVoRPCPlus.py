@@ -36,6 +36,7 @@ tivo_images = {
     "648": "series3oled",
     "649": "series2",
     "652": "series3xl",
+    "658": "series3xl",
     "746": "premiere",
     "748": "premiere",
     "750": "premiere",
