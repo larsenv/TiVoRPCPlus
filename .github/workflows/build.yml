@@ -22,7 +22,7 @@ jobs:
       run: pip install -r requirements.txt
     - name: Install pyinstaller
       run: pip install pyinstaller
-    - name: Build RiiTag RPC
+    - name: Build TiVoRPCPlus
       run: pyinstaller TiVoRPCPlus.spec
     - name: Publish Build Artifacts
       uses: actions/upload-artifact@master
