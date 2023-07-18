@@ -1,2 +1,2 @@
-pypresence
 requests
+pypresence
