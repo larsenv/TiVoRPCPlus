@@ -210,10 +210,15 @@ i = 1
 
 current_time = time.time()
 
+idle_time = 1800  # Change in order to timeout after more time
+idle_last = 0
+idle_channel = ""
+
 ## RPC Updater
 def updateRPC():
-    global pcn
+    global pcn, idle_channel, idle_time, idle_last
     ccn = getChan()
+    idle_channel = ccn
     activity = ""
     guide_data = getGuideData()
     name = getName(guide_data, ccn)
@@ -239,15 +244,22 @@ def updateRPC():
         name = name.replace(" 🔴", "")
         activity += " - " + "🔴 REC"
     if activity == pcn or i % 6 == 0:
+        if time.time() - idle_time > idle_last:
+            RPC.clear()
+            return "Idling."
         return "No need to update, sleeping for 5 seconds"
     elif ccn.split("-")[0].split(" ")[0].isnumeric() == False:
         return "Error while grabbing current channel, ensure that TiVo IP is correct or that multiple instances aren't running"
     else:
         pcn = activity
+        idle_last = time.time()
+        idle_channel = ccn
+
         if name is False:
             current_time = time.time()
 
             return RPC.update(
+                pid=1416189551,
                 state=activity,
                 large_image=image,
                 large_text=tivo_name,
@@ -259,6 +271,7 @@ def updateRPC():
             current_time = time.time()
 
             return RPC.update(
+                pid=1416189551,
                 state=activity,
                 details=name,
                 large_image=image,
