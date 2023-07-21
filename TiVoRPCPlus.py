@@ -243,8 +243,8 @@ def updateRPC():
     elif ccn.split("-")[0].split(" ")[0].isnumeric() == False:
         return "Error while grabbing current channel, ensure that TiVo IP is correct or that multiple instances aren't running"
     else:
-        pcn = ccn
-        if name == False:
+        pcn = activity
+        if name is False:
             current_time = time.time()
 
             return RPC.update(
