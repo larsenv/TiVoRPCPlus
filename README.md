@@ -9,8 +9,9 @@ Edit config.json as follows:
 
 | Key | Value |
 | ------ | ------ |
-| tivo_ip | Your TiVo Box IP |
-| tvguide_url | Zap2it Program Guide Link (see Important Notes) |
+| idle_time | How many seconds to time out rich presence if the channel wasn't changed or a recording wasn't started. |
+| tivo_ip | Your TiVo Box IP. |
+| tvguide_url | Zap2it Program Guide Link (see Important Notes). |
 
 ## Important Notes
 

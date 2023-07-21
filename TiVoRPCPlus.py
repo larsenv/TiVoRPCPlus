@@ -210,7 +210,7 @@ i = 1
 
 current_time = time.time()
 
-idle_time = 1800  # Change in order to timeout after more time
+idle_time = configjson["idle_time"]  # Change in order to timeout after more time
 idle_last = 0
 idle_channel = ""
 
