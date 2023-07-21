@@ -259,7 +259,6 @@ def updateRPC():
             current_time = time.time()
 
             return RPC.update(
-                pid=1416189551,
                 state=activity,
                 large_image=image,
                 large_text=tivo_name,
@@ -271,7 +270,6 @@ def updateRPC():
             current_time = time.time()
 
             return RPC.update(
-                pid=1416189551,
                 state=activity,
                 details=name,
                 large_image=image,
