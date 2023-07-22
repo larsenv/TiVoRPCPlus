@@ -1,13 +1,13 @@
-from pypresence import Presence
-import callsigns
 import time
 import socket
 import json
-import requests
 import sys
+import requests
+import callsigns
+from pypresence import Presence
 
 ## Load Config File
-with open("config.json") as config:
+with open("config.json", "r") as config:
     configjson = json.load(config)
     print("Config Loaded")
 
@@ -17,11 +17,11 @@ TCP_PORT = 31339
 BUFFER_SIZE = 30
 
 ## RPC Config
-client_id = "993635110333198449"
-RPC = Presence(client_id)
+CLIENT_ID = "993635110333198449"
+RPC = Presence(CLIENT_ID)
 RPC.connect()
 
-pcn = ""
+PCN = ""
 
 tivo_images = {
     "110": "series2",
@@ -81,8 +81,9 @@ tivo_names = {
     "D6F": "TiVo Edge Antenna",
 }
 
+
 ## Get TiVo Image
-def getTiVoModel():
+def get_tivo_model():
     try:
         response = requests.head("http://" + configjson["tivo_ip"] + "/")
         return response.headers.get("Server").split(":")[2]
@@ -92,19 +93,19 @@ def getTiVoModel():
 
 
 ## Get TiVo Image
-def getTiVoImage(model):
+def get_tivo_image(model):
     image = tivo_images[model]
     return image
 
 
 ## Get TiVo Name
-def getTiVoName(model):
+def get_tivo_name(model):
     image = tivo_names[model]
     return image
 
 
 ## Get Current Channel
-def getChan():
+def get_chan():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         s.connect((TCP_IP, TCP_PORT))
@@ -134,7 +135,7 @@ def getChan():
 
 
 ## Get Guide Data from Zap2it
-def getGuideData():
+def get_guide_data():
     try:
         return requests.get(
             configjson["tvguide_url"].split("time=")[0]
@@ -148,7 +149,7 @@ def getGuideData():
 
 
 ## Get Channel Name From Number
-def getName(guide_data, num):
+def get_name(guide_data, num):
     num = str(num.replace("-", ".").split(" ")[0])
 
     if guide_data:
@@ -163,7 +164,7 @@ def getName(guide_data, num):
 
 
 ## Get Full Channel Name From Number
-def getFullName(guide_data, num):
+def get_full_name(guide_data, num):
     num = str(num.replace("-", ".").split(" ")[0])
 
     if guide_data:
@@ -181,7 +182,7 @@ def getFullName(guide_data, num):
 
 
 ## Get Show Name from Number
-def getShowName(guide_data, num):
+def get_show_name(guide_data, num):
     num = str(num.replace("-", ".").split(" ")[0])
 
     if guide_data:
@@ -193,7 +194,7 @@ def getShowName(guide_data, num):
 
 
 ## Get Show Name from Number
-def getEpisodeTitle(guide_data, num):
+def get_episode_title(guide_data, num):
     num = str(num.replace("-", ".").split(" ")[0])
 
     if guide_data:
@@ -210,28 +211,29 @@ i = 1
 
 current_time = time.time()
 
-idle_time = configjson["idle_time"]  # Change in order to timeout after more time
-idle_last = 0
-idle_channel = ""
+IDLE_TIME = int(configjson["idle_time"])  # Change in order to timeout after more time
+IDLE_LAST = 0
+IDLE_CHANNEL = ""
+
 
 ## RPC Updater
-def updateRPC():
-    global pcn, idle_channel, idle_time, idle_last
-    ccn = getChan()
-    idle_channel = ccn
+def update_rpc():
+    global PCN, IDLE_CHANNEL, IDLE_LAST
+    ccn = get_chan()
+    IDLE_CHANNEL = ccn
     activity = ""
-    guide_data = getGuideData()
-    name = getName(guide_data, ccn)
+    guide_data = get_guide_data()
+    name = get_name(guide_data, ccn)
     if name is False:
         name = ""
-    full_name = getFullName(guide_data, ccn)
+    full_name = get_full_name(guide_data, ccn)
     if full_name is False:
         full_name = ""
-    model = getTiVoModel()
-    image = getTiVoImage(model)
-    tivo_name = getTiVoName(model)
-    show_name = getShowName(guide_data, ccn)
-    episode_title = getEpisodeTitle(guide_data, ccn)
+    model = get_tivo_model()
+    image = get_tivo_image(model)
+    tivo_name = get_tivo_name(model)
+    show_name = get_show_name(guide_data, ccn)
+    episode_title = get_episode_title(guide_data, ccn)
     if show_name is not False:
         activity += show_name
     if episode_title:
@@ -243,17 +245,17 @@ def updateRPC():
     if "🔴" in name:
         name = name.replace(" 🔴", "")
         activity += " - " + "🔴 REC"
-    if activity == pcn or i % 6 == 0:
-        if time.time() - idle_time > idle_last:
+    if activity == PCN or i % 6 == 0:
+        if time.time() - IDLE_TIME > IDLE_LAST:
             RPC.clear()
             return "Idling."
         return "No need to update, sleeping for 5 seconds"
-    elif ccn.split("-")[0].split(" ")[0].isnumeric() == False:
+    elif ccn.split("-", maxsplit=1)[0].isnumeric() is False:
         return "Error while grabbing current channel, ensure that TiVo IP is correct or that multiple instances aren't running"
     else:
-        pcn = activity
-        idle_last = time.time()
-        idle_channel = ccn
+        PCN = activity
+        IDLE_LAST = time.time()
+        IDLE_CHANNEL = ccn
 
         if name is False:
             current_time = time.time()
@@ -285,9 +287,12 @@ def updateRPC():
 ## The Magic Stuffs
 while True:
     try:
-        print(updateRPC())
+        print(update_rpc())
         time.sleep(5)
     except KeyboardInterrupt:
         print("Exiting...")
         RPC.close()
         sys.exit()
+    except Exception as e:
+        print("Error: " + str(e))
+        time.sleep(5)
