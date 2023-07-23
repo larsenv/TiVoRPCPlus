@@ -1,5 +1,5 @@
 {
-    "idle_time": "1800",
+    "idle_time": "300",
     "tivo_ip": "192.168.1.206",
     "tvguide_url": "https://tvschedule.zap2it.com/api/grid?lineupId=USA-lineupId-DEFAULT&timespan=1&headendId=lineupId&country=USA&timezone=&device=-&postalCode=78758&isOverride=true&time=1689649200&pref=16%2C128&userId=-&aid=gapzap&languagecode=en-us"
 }

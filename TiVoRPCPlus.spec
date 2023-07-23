@@ -32,4 +32,5 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=True,
+    target_arch="universal2",
 )
