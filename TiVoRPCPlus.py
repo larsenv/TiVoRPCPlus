@@ -47,7 +47,10 @@ tivo_images = {
     "848": "roamiopro",
     "849": "bolt",
     "A92": "mini",
+    "A93": "mini",
     "A95": "minivox",
+    "C68": "virgin",
+    "D18": "virgin",
     "D6E": "edge",
     "D6F": "edge",
 }
@@ -77,6 +80,8 @@ tivo_names = {
     "849": "TiVo Bolt",
     "A92": "TiVo Mini",
     "A95": "TiVo Mini VOX",
+    "C68": "TiVo Virgin",
+    "D18": "TiVo Virgin",
     "D6E": "TiVo Edge Cable",
     "D6F": "TiVo Edge Antenna",
 }
@@ -94,7 +99,10 @@ def get_tivo_model():
 
 ## Get TiVo Image
 def get_tivo_image(model):
-    image = tivo_images[model]
+    try:
+        image = tivo_images[model]
+    except KeyError:
+        image = "tivologo"
     return image
 
 
@@ -137,13 +145,20 @@ def get_chan():
 ## Get Guide Data from Zap2it
 def get_guide_data():
     try:
-        return requests.get(
-            configjson["tvguide_url"].split("time=")[0]
-            + "time="
-            + str(int(time.time()))
-            + "&pref="
-            + configjson["tvguide_url"].split("&pref=")[1]
-        ).json()["channels"]
+        if (
+            get_tivo_model() != "C68"
+            and get_tivo_model() != "D18"
+            and "http" in configjson["tvguide_url"]
+        ):
+            return requests.get(
+                configjson["tvguide_url"].split("time=")[0]
+                + "time="
+                + str(int(time.time()))
+                + "&pref="
+                + configjson["tvguide_url"].split("&pref=")[1]
+            ).json()["channels"]
+        else:
+            return
     except requests.exceptions.JSONDecodeError:
         return
 
