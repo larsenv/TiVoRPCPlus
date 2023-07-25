@@ -6,10 +6,12 @@ import requests
 import callsigns
 from pypresence import Presence
 
+print("TiVoRPCPlus by Larsenv - v1.0\n")
+
 ## Load Config File
 with open("config.json", "r") as config:
     configjson = json.load(config)
-    print("Config Loaded")
+    print("Config Loaded\n")
 
 ## TiVo TCP Config
 TCP_IP = configjson["tivo_ip"]
@@ -93,7 +95,7 @@ def get_tivo_model():
         response = requests.head("http://" + configjson["tivo_ip"] + "/")
         return response.headers.get("Server").split(":")[2]
     except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred: {e}\n")
         return None
 
 
@@ -119,7 +121,7 @@ def get_chan():
         s.connect((TCP_IP, TCP_PORT))
     except ConnectionRefusedError:
         print(
-            "Connection Refused. This probably means your TiVo doesn't have network remote control enabled."
+            "Connection Refused. This probably means your TiVo doesn't have network remote control enabled.\n"
         )
         sys.exit(1)
     data = s.recv(BUFFER_SIZE)
@@ -134,7 +136,7 @@ def get_chan():
             ccn = str(int(ccn))
     except ValueError:
         print(
-            "Couldn't find the channel you're on. Try going into TiVo Central and exit it."
+            "Couldn't find the channel you're on. Try going into TiVo Central and exit it.\n"
         )
         sys.exit(1)
     if b"RECORDING" in data:
@@ -302,7 +304,7 @@ def update_rpc():
 ## The Magic Stuffs
 while True:
     try:
-        print(update_rpc())
+        print(str(update_rpc()))
         time.sleep(5)
     except KeyboardInterrupt:
         print("Exiting...")
