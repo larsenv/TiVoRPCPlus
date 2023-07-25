@@ -25,6 +25,6 @@ Edit config.json as follows.
 ## Important Notes
 To get your `tvguide_url` you will need to go on [Zap2it](https://tvschedule.zap2it.com/) website then correctly select your provider. In Developer Mode, go on Network then you can find a URL with `grid` in its name. Copy that to the config.json.
 
-You __NEED__ to enable Network Remote Control in your TiVo settings. Google how to do this for your specific TiVo box.
+You must turn Network Remote Control on your TiVo in order to use rich presence.
 
 Thanks to dwilliamsuk for the original TiVoRPC app.
