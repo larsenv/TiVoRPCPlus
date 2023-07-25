@@ -14,7 +14,7 @@ Discord rich presence for TiVo made in Python 3.
 You can grab a ready to use compiled version of the program [on this link](https://github.com/larsenv/TiVoRPCPlus/releases/latest). You will need to rename config.json.example to config.json then edit it which is covered on the next section. config.json needs to be in the same folder as the program.
 
 ## Configuration
-Edit config.json as follows:
+Edit config.json as follows.
 
 | Key | Value |
 | ------ | ------ |
@@ -23,7 +23,6 @@ Edit config.json as follows:
 | tvguide_url | Zap2it Program Guide Link (see Important Notes). |
 
 ## Important Notes
-
 To get your `tvguide_url` you will need to go on [Zap2it](https://tvschedule.zap2it.com/) website then correctly select your provider. In Developer Mode, go on Network then you can find a URL with `grid` in its name. Copy that to the config.json
 
 You __NEED__ to enable Network Remote Control in your TiVo settings. Google how to do this for your specific TiVo box.
