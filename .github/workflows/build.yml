@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
+        os: [windows-2022, ubuntu-22.04, ubuntu-20.04, macOS-latest]
 
     steps:
     - name: Obtain latest version of the repository
