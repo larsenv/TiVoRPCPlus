@@ -1,7 +1,7 @@
 # TiVoRPCPlus
 Discord rich presence for TiVo made in Python 3.
 
-![Preview](https://cdn.discordapp.com/attachments/875867109140353044/1133230288449835008/Image_2023-07-24_at_9.52.25_PM.jpg = 300x)
+![Preview](https://cdn.discordapp.com/attachments/875867109140353044/1133230288449835008/Image_2023-07-24_at_9.52.25_PM.jpg =300x)
 
 ## Features
 - Shows what program you're watching, the channel number, network, and if you're recording or not. Changes automatically when you change channels.
