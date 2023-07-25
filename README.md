@@ -4,9 +4,11 @@ Discord rich presence for TiVo made in Python 3.
 ![Preview](https://cdn.discordapp.com/attachments/875867109140353044/1133230288449835008/Image_2023-07-24_at_9.52.25_PM.jpg =300x)
 
 ## Features
-- Shows what program you're watching, the channel number, network, and if you're recording or not. Changes automatically when you change channels.
+- Shows what program you're watching, the channel number, network, and if you're recording or not.
 - Setting to hide your rich presence if you don't change channels after a given time.
+- Rich presence changes automatically when you change channels.
 - Picture of your TiVo DVR's shown correlating with the TiVo model you own.
+- Works on Series 2, Series 3, Premiere, Roamio, BOLT, Edge, Mini, and Virgin Media TiVos.
 
 ## Installation
 You can grab a ready to use compiled version of the program [on this link](https://github.com/larsenv/TiVoRPCPlus/releases/latest). You will need to rename config.json.example to config.json then edit it which is covered on the next section. config.json needs to be in the same folder as the program.
