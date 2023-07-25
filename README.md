@@ -11,7 +11,7 @@ Discord rich presence for TiVo made in Python 3.
 - Works on Series 2, Series 3, Premiere, Roamio, BOLT, Edge, Mini, and Virgin Media TiVos.
 
 ## Installation
-You can grab a ready to use compiled version of the program [on this link](https://github.com/larsenv/TiVoRPCPlus/releases/latest). You will need to rename config.json.example to config.json then edit it which is covered on the next section. It needs to be in the same folder as the program.
+You can grab a compiled version of the program [here](https://github.com/larsenv/TiVoRPCPlus/releases/latest). You will need to rename config.json.example to config.json then edit it which is covered on the next section. It needs to be in the same folder as the program.
 
 ## Configuration
 Edit config.json as follows.
