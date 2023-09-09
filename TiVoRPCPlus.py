@@ -81,6 +81,7 @@ tivo_names = {
     "848": "TiVo Roamio Plus",
     "849": "TiVo Bolt",
     "A92": "TiVo Mini",
+    "A93": "TiVo Mini",
     "A95": "TiVo Mini VOX",
     "C68": "TiVo Virgin",
     "D18": "TiVo Virgin",
