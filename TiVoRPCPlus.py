@@ -111,8 +111,7 @@ def get_tivo_image(model):
 
 ## Get TiVo Name
 def get_tivo_name(model):
-    image = tivo_names[model]
-    return image
+    return tivo_names[model]
 
 
 ## Get Current Channel
@@ -132,7 +131,7 @@ def get_chan():
         if len(ccn) == 8:
             ccn2 = str(int(ccn[-4:]))
             ccn = str(int(ccn[:-4]))
-            ccn += "-" + ccn2
+            ccn += f"-{ccn2}"
         else:
             ccn = str(int(ccn))
     except ValueError:
@@ -188,14 +187,13 @@ def get_full_name(guide_data, num):
     if guide_data:
         for channel in guide_data:
             if channel["channelNo"] == num:
-                if channel["callSign"] not in callsigns.callsigns:
-                    if channel["affiliateName"] != "":
-                        return " - " + channel["affiliateName"]
-                    else:
-                        return ""
+                if (
+                    channel["callSign"] not in callsigns.callsigns
+                    and channel["affiliateName"] != ""
+                ):
+                    return " - " + channel["affiliateName"]
                 else:
                     return ""
-
     return False
 
 
@@ -256,8 +254,8 @@ def update_rpc():
         activity += show_name
     if episode_title:
         if len(activity + episode_title) <= 62:
-            activity += " - " + episode_title
-    name += " - Channel " + ccn
+            activity += f" - {episode_title}"
+    name += f" - Channel {ccn}"
     if name != full_name and name is not None:
         name += full_name
     if "🔴" in name:
@@ -305,12 +303,12 @@ def update_rpc():
 ## The Magic Stuffs
 while True:
     try:
-        print(str(update_rpc()))
+        print(update_rpc())
         time.sleep(5)
     except KeyboardInterrupt:
         print("Exiting...")
         RPC.close()
         sys.exit()
     except Exception as e:
-        print("Error: " + str(e))
+        print(f"Error: {str(e)}")
         time.sleep(5)
