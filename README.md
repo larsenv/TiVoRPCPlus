@@ -1,8 +1,6 @@
 # TiVoRPCPlus
 Discord rich presence for TiVo made in Python 3.
 
-<img src="http://transfer.archivete.am/12SfPn/%60.png" alt="Preview" width="500"/>
-
 ## Features
 - Shows what program you're watching, the channel number, network, and if you're recording or not.
 - Setting to hide your rich presence if you don't change channels after a given time.
