@@ -25,4 +25,4 @@ To get your `tvguide_url` you will need to go on [Zap2it](https://tvschedule.zap
 
 You must turn Network Remote Control on your TiVo in order to use rich presence.
 
-Thanks to dwilliamsuk for the original TiVoRPC app.
+Thanks to dwilliamsuk for the original TiVoRPC app
